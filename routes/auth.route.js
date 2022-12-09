@@ -1,7 +1,7 @@
-import {body} from 'express-validator';
-import {login} from '../controller/auth.controller';
+const {body} = require('express-validator');
+const {login} = require('../controller/auth.controller.js');
 
-export default auth = (app) => {
+module.exports = (app) => {
   app.post(
       '/api/login',
       body('email').notEmpty().withMessage('Email cannot be null'),

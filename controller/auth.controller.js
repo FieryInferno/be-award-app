@@ -1,12 +1,12 @@
-import {validationResult} from 'express-validator';
-import {User} from '../models';
+const {validationResult} = require('express-validator');
+const model = require('../models/index.js');
 
 let code;
 let status;
 let message;
 let data;
 
-export const login = async (req, res) => {
+exports.login = async (req, res) => {
   code = 400;
   status = 'Failed';
   data = {};
@@ -19,7 +19,7 @@ export const login = async (req, res) => {
       message = errors;
       data = {};
     } else {
-      const user = await User.findOne({where: {email: req.body.email}});
+      const user = await model.User.findOne({where: {email: req.body.email}});
 
       if (user) {
         code = 200;

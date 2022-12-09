@@ -1,6 +1,4 @@
-import auth from './auth.route';
-
-export default routes = (app) => {
+module.exports = (app) => {
   app.use((req, res, next) => {
     res.header(
         'Access-Control-Allow-Headers',
@@ -10,5 +8,5 @@ export default routes = (app) => {
     next();
   });
 
-  auth(app);
+  require('./auth.route')(app);
 };
