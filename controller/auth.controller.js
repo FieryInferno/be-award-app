@@ -1,5 +1,7 @@
 const {validationResult} = require('express-validator');
-const model = require('../models/index.js');
+const {User} = require('../models/index.js');
+const jwt = require('jsonwebtoken');
+const config = require('../config/auth.config');
 
 let code;
 let status;
@@ -19,7 +21,7 @@ exports.login = async (req, res) => {
       message = errors;
       data = {};
     } else {
-      const user = await model.User.findOne({where: {email: req.body.email}});
+      const user = await User.findOne({where: {email: req.body.email}});
 
       if (user) {
         code = 200;
@@ -27,7 +29,9 @@ exports.login = async (req, res) => {
         message = 'Success';
         data = {
           ...user.dataValues,
-          token: jwt.sign({id}, config.secret, {expiresIn: '1h'}),
+          token: jwt.sign(
+              {username: user.username}, config.secret, {expiresIn: '1h'},
+          ),
         };
       } else {
         message = 'Email Address is not exists';
@@ -35,6 +39,7 @@ exports.login = async (req, res) => {
     }
   } catch (error) {
     code = 400;
+    status = 'Failed';
     message = error;
   } finally {
     return res.status(code).send({status, message, data});
