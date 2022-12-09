@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import routes from './routes';
 
 const app = express();
 
@@ -19,3 +20,5 @@ app.listen(port, () => console.log(`http://localhost:${port}`));
 app.get('/', (req, res) => res.json({
   message: 'Welcome to Award API',
 }));
+
+routes(app);
