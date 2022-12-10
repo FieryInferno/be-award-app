@@ -14,7 +14,21 @@ exports.get = async (req, res) => {
     code = 201;
     status = 'Success';
     message = 'Success';
-    data = await Award.findAndCountAll();
+    const {limit, page} = req.query;
+    const dataAward = await Award.findAndCountAll({
+      limit,
+      offset: limit * page,
+    });
+
+    console.log(dataAward.rows.length);
+
+    data = {
+      page: +page,
+      limit: +limit,
+      count: dataAward.rows.length,
+      total: dataAward.count,
+      rows: dataAward.rows,
+    };
   } catch (error) {
     code = 400;
     status = 'Failed';
