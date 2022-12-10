@@ -20,8 +20,6 @@ exports.get = async (req, res) => {
       offset: limit * page,
     });
 
-    console.log(dataAward.rows.length);
-
     data = {
       page: +page,
       limit: +limit,
