@@ -1,5 +1,5 @@
 const {body} = require('express-validator');
-const {login} = require('../controller/auth.controller.js');
+const {login} = require('../controllers/auth.controller');
 
 module.exports = (app) => {
   app.post(

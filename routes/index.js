@@ -9,4 +9,5 @@ module.exports = (app) => {
   });
 
   require('./auth.route')(app);
+  require('./award.route')(app);
 };

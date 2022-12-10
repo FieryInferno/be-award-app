@@ -13,6 +13,7 @@ const url = process.env.URL;
 app.use(cors({origin: url}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('images'));
 
 const port = process.env.PORT || 5000;
 
